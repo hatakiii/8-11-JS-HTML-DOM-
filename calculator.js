@@ -34,3 +34,39 @@ one.addEventListener("click", () => {
 two.addEventListener("click", () => {
   input.innerText += "2";
 });
+
+three.addEventListener("click", () => {
+  input.innerText += "3";
+});
+
+four.addEventListener("click", () => {
+  input.innerText += "4";
+});
+
+five.addEventListener("click", () => {
+  input.innerText += "5";
+});
+
+six.addEventListener("click", () => {
+  input.innerText += "6";
+});
+
+seven.addEventListener("click", () => {
+  input.innerText += "7";
+});
+
+eight.addEventListener("click", () => {
+  input.innerText += "8";
+});
+
+nine.addEventListener("click", () => {
+  input.innerText += "9";
+});
+
+zero.addEventListener("click", () => {
+  input.innerText += "0";
+});
+
+fraction.addEventListener("click", () => {
+  input.innerText += ".";
+});
