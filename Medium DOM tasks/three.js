@@ -2,17 +2,16 @@ const body = document.querySelector("body");
 const div = document.createElement("div");
 const btn = document.createElement("button");
 
+const numArray = [8, 3, 7, 1, 5];
+
 body.appendChild(div);
 body.appendChild(btn);
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+btn.innerText = "Sort Ascending";
+div.innerHTML = `Numbers: ${numArray}`;
 
-btn.innerText = "Show numbers > 5";
-
-const results = arr.filter((val) => {
-  return val > 5;
-});
+const sortedArray = numArray.sort((a, b) => a - b);
 
 btn.addEventListener("click", () => {
-  div.innerText = results;
+  div.innerHTML = `Sorted numbers: ${sortedArray}`;
 });
