@@ -1,72 +1,109 @@
-let input = document.getElementById("input");
-let output = document.getElementById("output");
-// numbers
-const one = document.getElementById("one");
-const two = document.getElementById("two");
-const three = document.getElementById("three");
-const four = document.getElementById("four");
-const five = document.getElementById("five");
-const six = document.getElementById("six");
-const seven = document.getElementById("seven");
-const eight = document.getElementById("eight");
-const nine = document.getElementById("nine");
-const zero = document.getElementById("zero");
-//math functions
-const plus = document.getElementById("plus");
-const minus = document.getElementById("minus");
-const multiply = document.getElementById("multiply");
-const divide = document.getElementById("divide");
-//additionals
-const fraction = document.getElementById("fraction");
-const clear = document.getElementById("clear");
-const minusPlus = document.getElementById("minusPlus");
-const percentage = document.getElementById("percentage");
-const equals = document.getElementById("equals");
+const inputDisplay = document.getElementById("input");
+const resultDisplay = document.getElementById("result");
 
-// variables
-let n1 = null;
-let n2 = null;
+let input = "";
+let result = 0;
+let resetNext = false;
 
-one.addEventListener("click", () => {
-  input.innerText += "1";
-});
+// Get all buttons
+const buttons = document.querySelectorAll(".btn");
 
-two.addEventListener("click", () => {
-  input.innerText += "2";
-});
+buttons.forEach(function (button) {
+  button.addEventListener("click", function () {
+    let id = button.id;
+    let value = button.innerText;
 
-three.addEventListener("click", () => {
-  input.innerText += "3";
-});
+    if (
+      resetNext &&
+      id !== "plus" &&
+      id !== "minus" &&
+      id !== "multiply" &&
+      id !== "divide" &&
+      id !== "equals"
+    ) {
+      input = "";
+      resetNext = false;
+    }
 
-four.addEventListener("click", () => {
-  input.innerText += "4";
-});
+    if (id === "clear") {
+      input = "";
+      result = 0;
+      updateDisplay();
+    } else if (id === "minusPlus") {
+      if (input) {
+        if (input.startsWith("-")) {
+          input = input.slice(1);
+        } else {
+          input = "-" + input;
+        }
+        updateDisplay();
+      }
+    } else if (id === "percentage") {
+      try {
+        result = eval(replaceOperators(input)) / 100;
+        input = result.toString(); // you might want to keep this, since percentage is a transformation
+        updateDisplay();
+        resetNext = true;
+      } catch {
+        showError();
+      }
+    } else if (id === "equals") {
+      try {
+        result = eval(replaceOperators(input));
+        // Don't reset input, just show result
+        updateDisplay();
+        resetNext = true;
+      } catch {
+        showError();
+      }
+    } else if (
+      id === "plus" ||
+      id === "minus" ||
+      id === "multiply" ||
+      id === "divide"
+    ) {
+      // If an operator is pressed after a calculation, start new input with the result
+      if (resetNext) {
+        input = result.toString();
+        resetNext = false;
+      }
+      input += value;
+      updateDisplay();
+    } else if (
+      id === "fraction" ||
+      id === "zero" ||
+      id === "one" ||
+      id === "two" ||
+      id === "three" ||
+      id === "four" ||
+      id === "five" ||
+      id === "six" ||
+      id === "seven" ||
+      id === "eight" ||
+      id === "nine"
+    ) {
+      if (resetNext) {
+        input = ""; // clear only for digits after equals
+        resetNext = false;
+      }
+      input += value;
+      updateDisplay();
+    }
+  });  // <-- close event listener function
+});    // <-- close buttons.forEach
 
-five.addEventListener("click", () => {
-  input.innerText += "5";
-});
+function updateDisplay() {
+  inputDisplay.textContent = input || "0";
+  resultDisplay.textContent = result || "0";
+}
 
-six.addEventListener("click", () => {
-  input.innerText += "6";
-});
+function showError() {
+  inputDisplay.textContent = "Error";
+  resultDisplay.textContent = "0";
+  input = "";
+  resetNext = true;
+}
 
-seven.addEventListener("click", () => {
-  input.innerText += "7";
-});
-
-eight.addEventListener("click", () => {
-  input.innerText += "8";
-});
-
-nine.addEventListener("click", () => {
-  input.innerText += "9";
-});
-
-zero.addEventListener("click", () => {
-  input.innerText += "0";
-});
-
-fraction.addEventListener("click", () => {
-  input.innerText += ".";
-});
+function replaceOperators(str) {
+  return str.replace(/×/g, "*").replace(/÷/g, "/").replace(/−/g, "-");
+}
