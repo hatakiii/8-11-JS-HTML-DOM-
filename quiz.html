@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz for fun</title>
+  </head>
+  <body>
+    <h1>welcome people</h1>
+    <button id="start">start</button>
+    <script>
+      let data = [
+        {
+          answer: "who killed code",
+          a: "you",
+          b: "i am",
+          c: "no one",
+          d: "himself",
+          correctAnswer: "a",
+        },
+      ];
+
+      let exampleData = [
+        {
+          question: "who killed code",
+          answers: ["you", "i am", "no one", "himself"],
+          correctAnswer: 0,
+        },
+        {
+          question: "hamaaguie",
+          answers: ["you", "i am", "no one", "himself"],
+          correctAnswer: 3,
+        },
+      ];
+
+      let body = document.querySelector("body");
+      let startBtn = document.getElementById("start");
+      let startText = document.querySelector("h1");
+      let count = 0;
+      let corrects = 0;
+      startBtn.addEventListener("click", () => {
+        startBtn.remove();
+        startText.remove();
+
+        exampleData.map((oneQuestion) => {
+          let question = document.createElement("h2");
+          body.appendChild(question);
+          question.innerText = oneQuestion.question;
+          oneQuestion.answers.map((answer, index) => {
+            let button = document.createElement("button");
+            body.appendChild(button);
+            button.innerText = answer;
+
+            button.addEventListener("click", () => {
+              if (index === oneQuestion.correctAnswer) {
+                console.log("zuv hariullaa");
+              } else {
+                console.log("hudlaa hariullaa");
+              }
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
