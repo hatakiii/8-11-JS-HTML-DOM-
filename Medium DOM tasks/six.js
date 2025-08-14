@@ -6,14 +6,14 @@ const list = document.getElementById("ul");
 const li = document.createElement("li");
 
 const render = () => {
-  list.innerHTML = ""; //Clear existing list
+  list.innerHTML = "";
   arr.forEach((element) => {
     const li = document.createElement("li");
     li.textContent = element;
 
     li.addEventListener("click", () => {
       arr = arr.filter((el) => el !== element);
-      render(); // re-render after removal
+      render();
     });
 
     list.appendChild(li);
