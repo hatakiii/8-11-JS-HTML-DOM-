@@ -8,9 +8,8 @@ let data = [
 const select = document.querySelector("select");
 const uul = document.querySelector("ul");
 
-// Function to render the list
 const renderList = (items) => {
-  uul.innerHTML = ""; // Clear the list
+  uul.innerHTML = "";
   items.forEach((food) => {
     let li = document.createElement("li");
     li.innerText = food.name;
@@ -18,15 +17,13 @@ const renderList = (items) => {
   });
 };
 
-// No initial render → list is empty until change happens
-
 select.addEventListener("change", () => {
   const selectedValue = select.value;
 
   if (selectedValue === "all") {
-    renderList(data); // Show all items
+    renderList(data);
   } else {
     const filtered = data.filter((item) => item.category === selectedValue);
-    renderList(filtered); // Show filtered items
+    renderList(filtered);
   }
 });
